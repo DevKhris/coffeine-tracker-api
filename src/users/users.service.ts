@@ -16,6 +16,10 @@ export class UsersService {
     return await this.user.findById(id);
   }
 
+  async findByField(data): Promise<User> {
+    return await this.user.findOne(data);
+  }
+
   async create(newUser: createUserDTO): Promise<User> {
     return await this.user.create(newUser);
   }
