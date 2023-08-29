@@ -13,7 +13,6 @@ describe('AuthService', () => {
   let authService: AuthService;
   let usersService: UsersService;
   let jwtService: JwtService;
-  let userModel: Model<User>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -35,7 +34,6 @@ describe('AuthService', () => {
     authService = module.get<AuthService>(AuthService);
     usersService = module.get<UsersService>(UsersService);
     jwtService = module.get<JwtService>(JwtService);
-    userModel = module.get<Model<User>>(getModelToken(User.name));
 
     jest
       .spyOn(bcrypt, 'compare')
