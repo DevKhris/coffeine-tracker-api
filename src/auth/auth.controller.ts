@@ -8,7 +8,7 @@ import {
   HttpStatus,
   UseGuards,
 } from '@nestjs/common';
-import { createUserDTO } from '../dto/user.dto';
+import { CreateUserDTO } from '../dto/user.dto';
 import { AuthService } from './auth.service';
 import { User } from '../schemas/user.schema';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -19,7 +19,7 @@ export class AuthController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('register')
-  async registerUser(@Body() newUser: createUserDTO): Promise<User> {
+  async registerUser(@Body() newUser: CreateUserDTO): Promise<User> {
     return await this.authService.registerUser(newUser);
   }
 

@@ -3,7 +3,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UsersService } from './users.service';
 import { User } from '../schemas/user.schema';
-import { createUserDTO, updateUserDTO } from 'src/dto/user.dto';
+import { CreateUserDTO, UpdateUserDTO } from '../dto/user.dto';
 
 describe('AuthService', () => {
   let usersService: UsersService;
@@ -77,7 +77,7 @@ describe('AuthService', () => {
     });
 
     it('should return a new user object from service', async () => {
-      const user: createUserDTO = {
+      const user: CreateUserDTO = {
         username: 'john',
         email: 'johnkramer@jigsaw.com',
         password: 'doyouwanttoplayagame',
@@ -90,7 +90,7 @@ describe('AuthService', () => {
 
     it('should return a updated user object from service', async () => {
       const id: string = 'loremipsumdolor';
-      const user: updateUserDTO = {
+      const user: UpdateUserDTO = {
         username: 'mark',
         email: 'markhoffman@jigsaw.com',
       };

@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
-import { Model } from 'mongoose';
 import { getModelToken } from '@nestjs/mongoose';
 import { User } from '../schemas/user.schema';
-import { createUserDTO } from '../dto/user.dto';
+import { CreateUserDTO } from '../dto/user.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UnauthorizedException } from '@nestjs/common';
@@ -46,7 +45,7 @@ describe('AuthService', () => {
 
   describe('register user', () => {
     it('should register a new user', async () => {
-      const newUser: createUserDTO = {
+      const newUser: CreateUserDTO = {
         username: 'john',
         email: 'johnkramer@jigsaw.com',
         password: 'opentheblackbox',
@@ -67,7 +66,7 @@ describe('AuthService', () => {
       const salt = await bcrypt.genSalt();
       const hash = await bcrypt.hash('opentheblackbox', salt);
 
-      const newUser: createUserDTO = {
+      const newUser: CreateUserDTO = {
         username: 'john',
         email: 'johnkramer@jigsaw.com',
         password: hash,
@@ -84,7 +83,7 @@ describe('AuthService', () => {
     });
 
     it('should throw UnauthorizedException if the credentials are invalid', async () => {
-      const user: createUserDTO = {
+      const user: CreateUserDTO = {
         username: 'mark',
         email: 'markhoffman@jigsaw.com',
         password: 'opentheblackbox',

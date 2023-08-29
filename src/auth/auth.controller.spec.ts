@@ -2,7 +2,7 @@ import { MockJwtAuthGuard } from './../mocks/mock-jwt-auth-guard.mock';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { createUserDTO } from '../dto/user.dto';
+import { CreateUserDTO } from '../dto/user.dto';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { JwtService } from '@nestjs/jwt';
@@ -52,7 +52,7 @@ describe('AuthController', () => {
 
   describe('authentication', () => {
     it('should return the registered user object', async () => {
-      const newUser: createUserDTO = {
+      const newUser: CreateUserDTO = {
         username: 'john',
         email: 'johnkramer@jigsaw.com',
         password: 'opentheblackbox',
@@ -70,7 +70,7 @@ describe('AuthController', () => {
     });
 
     it('should return a token if user is validated', async () => {
-      const newUser: createUserDTO = {
+      const newUser: CreateUserDTO = {
         username: 'john',
         email: 'johnkramer@jigsaw.com',
         password: 'opentheblackbox',

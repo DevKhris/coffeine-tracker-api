@@ -1,11 +1,25 @@
-export type createUserDTO = {
-  username: string;
-  password: string;
-  email: string;
-};
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export type updateUserDTO = {
+export class CreateUserDTO {
+  @IsString()
+  @IsNotEmpty()
+  username: string;
+  @IsString()
+  @IsEmail()
+  email: string;
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+}
+
+export class UpdateUserDTO {
+  @IsString()
+  @IsNotEmpty()
   username?: string;
-  password?: string;
+  @IsString()
+  @IsEmail()
   email?: string;
-};
+  @IsString()
+  @IsNotEmpty()
+  password?: string;
+}
