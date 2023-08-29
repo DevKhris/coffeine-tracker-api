@@ -2,19 +2,20 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://root:root@astra.pqefajg.mongodb.net/?retryWrites=true&w=majority',
-    ),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MongooseModule.forRoot(``),
     AuthModule,
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService],
+  providers: [AppService],
 })
 export class AppModule {}

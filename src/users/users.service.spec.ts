@@ -17,7 +17,7 @@ describe('AuthService', () => {
           provide: getModelToken(User.name),
           useValue: {
             find: jest.fn(),
-            findById: jest.fn(),
+            findByField: jest.fn(),
             create: jest.fn(),
             findByIdAndUpdate: jest.fn(),
             findByIdAndDelete: jest.fn(),
