@@ -2,12 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UsersService } from './users.service';
-import { User } from '../schemas/user.schema';
+import { User, UserDocument } from '../schemas/user.schema';
 import { CreateUserDTO, UpdateUserDTO } from '../dto/user.dto';
 
 describe('AuthService', () => {
   let usersService: UsersService;
-  let userModel: Model<User>;
+  let userModel: Model<UserDocument>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,7 +27,7 @@ describe('AuthService', () => {
     }).compile();
 
     usersService = module.get<UsersService>(UsersService);
-    userModel = module.get<Model<User>>(getModelToken(User.name));
+    userModel = module.get<Model<UserDocument>>(getModelToken(User.name));
   });
 
   describe('test user service functions', () => {

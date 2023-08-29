@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type CaffeineEntryDocument = HydratedDocument<CaffeineEntry>;
-
 @Schema({
   timestamps: true,
 })
@@ -34,5 +32,7 @@ export class CaffeineEntry {
   @Prop()
   amount: number;
 }
+
+export type CaffeineEntryDocument = HydratedDocument<CaffeineEntry>;
 
 export const CaffeineEntrySchema = SchemaFactory.createForClass(CaffeineEntry);

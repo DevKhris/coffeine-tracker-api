@@ -9,15 +9,15 @@ export class UsersService {
   constructor(@InjectModel(User.name) private user: Model<User>) {}
 
   async findAll(): Promise<User[]> {
-    return await this.user.find();
+    return await this.user.find().exec();
   }
 
   async find(id: string): Promise<User> {
-    return await this.user.findById(id);
+    return await this.user.findById(id).exec();
   }
 
   async findByField(data): Promise<User> {
-    return await this.user.findOne(data);
+    return await this.user.findOne(data).exec();
   }
 
   async create(newUser: CreateUserDTO): Promise<User> {
