@@ -1,12 +1,16 @@
+import { Field, ObjectType } from '@nestjs/graphql';
+import { HydratedDocument, ObjectId } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
 
+@ObjectType()
 @Schema({
   timestamps: true,
 })
 export class User {
-  _id?: mongoose.Types.ObjectId;
+  @Field(() => String)
+  _id?: ObjectId;
 
+  @Field(() => String)
   @Prop({
     unique: true,
     required: true,
@@ -14,12 +18,14 @@ export class User {
   })
   username: string;
 
+  @Field(() => String)
   @Prop({
     required: true,
     trim: true,
   })
   password: string;
 
+  @Field(() => String)
   @Prop({
     required: true,
     trim: true,
