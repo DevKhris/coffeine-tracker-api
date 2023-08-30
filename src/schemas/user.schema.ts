@@ -18,7 +18,6 @@ export class User {
   })
   username: string;
 
-  @Field(() => String)
   @Prop({
     required: true,
     trim: true,

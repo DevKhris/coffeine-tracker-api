@@ -17,7 +17,6 @@ export class UserDTO {
   @IsEmail()
   email?: string;
 
-  @Field(() => String, { nullable: true })
   @IsString()
   @IsNotEmpty()
   password?: string;
@@ -34,7 +33,6 @@ export class CreateUserDTO {
   @IsEmail()
   email: string;
 
-  @Field(() => String)
   @IsString()
   @IsNotEmpty()
   password: string;
@@ -55,7 +53,6 @@ export class UpdateUserDTO {
   @IsEmail()
   email?: string;
 
-  @Field(() => String, { nullable: true })
   @IsString()
   @IsNotEmpty()
   password?: string;

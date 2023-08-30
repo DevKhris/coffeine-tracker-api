@@ -4,7 +4,6 @@
 
 input CreateUserDTO {
   email: String!
-  password: String!
   username: String!
 }
 
@@ -22,20 +21,17 @@ type Query {
 input UpdateUserDTO {
   _id: String!
   email: String
-  password: String
   username: String
 }
 
 type User {
   _id: String!
   email: String!
-  password: String!
   username: String!
 }
 
 input UserDTO {
   _id: String!
   email: String
-  password: String
   username: String
 }
