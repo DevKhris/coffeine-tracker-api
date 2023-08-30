@@ -1,11 +1,11 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { Schema, ObjectId } from 'mongoose';
+import { Schema, Types } from 'mongoose';
 import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class UserDTO {
   @Field(() => String)
-  _id?: ObjectId;
+  _id?: Types.ObjectId;
 
   @Field(() => String, { nullable: true })
   @IsString()
@@ -41,7 +41,7 @@ export class CreateUserDTO {
 @InputType()
 export class UpdateUserDTO {
   @Field(() => String)
-  _id?: ObjectId;
+  _id?: Types.ObjectId;
 
   @Field(() => String, { nullable: true })
   @IsString()

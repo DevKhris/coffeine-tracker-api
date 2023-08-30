@@ -1,13 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 @Schema({
   timestamps: true,
 })
-export class CaffeineEntry {
+export class Caffeine {
+  _id?: Types.ObjectId;
+
   @Prop({
-    unique: true,
-    required: true,
     trim: true,
   })
   date: Date;
@@ -31,8 +31,10 @@ export class CaffeineEntry {
   })
   @Prop()
   amount: number;
+
+  user?: [{ type: Types.ObjectId; ref: 'User' }];
 }
 
-export type CaffeineEntryDocument = HydratedDocument<CaffeineEntry>;
+export type CaffeineDocument = HydratedDocument<Caffeine>;
 
-export const CaffeineEntrySchema = SchemaFactory.createForClass(CaffeineEntry);
+export const CaffeineSchema = SchemaFactory.createForClass(Caffeine);

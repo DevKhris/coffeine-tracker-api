@@ -10,18 +10,20 @@ import { ConfigModule } from '@nestjs/config';
 import { UserResolver } from './users/user.resolver';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { CaffeineModule } from './caffeine/caffeine.module';
 import * as redisStore from 'cache-manager-redis-store';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    CacheModule.register({
-      isGlobal: true,
-      store: redisStore,
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-    }),
+    // CacheModule.register({
+    //   isGlobal: true,
+    //   store: redisStore,
+    //   host: process.env.REDIS_HOST,
+    //   port: process.env.REDIS_PORT,
+    // }),
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/?retryWrites=true&w=majority`,
     ),
@@ -35,6 +37,7 @@ import * as redisStore from 'cache-manager-redis-store';
     }),
     AuthModule,
     UsersModule,
+    CaffeineModule,
   ],
   controllers: [AppController],
   providers: [AppService, UserResolver],

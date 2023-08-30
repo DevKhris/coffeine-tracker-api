@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { User } from '../schemas/user.schema';
 import { CreateUserDTO, UpdateUserDTO, UserDTO } from '../dto/user.dto';
 
@@ -12,7 +12,7 @@ export class UsersService {
     return await this.user.find().exec();
   }
 
-  async find(id: string | ObjectId): Promise<User> {
+  async find(id: Types.ObjectId): Promise<User> {
     return await this.user.findById(id).exec();
   }
 
@@ -24,14 +24,11 @@ export class UsersService {
     return await this.user.create(newUser);
   }
 
-  async update(
-    id: string | ObjectId,
-    updateUser: UpdateUserDTO,
-  ): Promise<User> {
+  async update(id: Types.ObjectId, updateUser: UpdateUserDTO): Promise<User> {
     return await this.user.findByIdAndUpdate(id, updateUser);
   }
 
-  async delete(id: string | ObjectId): Promise<User> {
+  async delete(id: Types.ObjectId): Promise<boolean> {
     return await this.user.findByIdAndDelete(id);
   }
 }

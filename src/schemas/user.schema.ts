@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { HydratedDocument, ObjectId } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @ObjectType()
@@ -8,7 +8,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 })
 export class User {
   @Field(() => String)
-  _id?: ObjectId;
+  _id?: Types.ObjectId;
 
   @Field(() => String)
   @Prop({
@@ -26,10 +26,13 @@ export class User {
 
   @Field(() => String)
   @Prop({
+    unique: true,
     required: true,
     trim: true,
   })
   email: string;
+
+  caffeines?: [type: Types.ObjectId, ref: 'Caffeine'];
 }
 
 export type UserDocument = HydratedDocument<User>;

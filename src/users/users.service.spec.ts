@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { UsersService } from './users.service';
 import { User, UserDocument } from '../schemas/user.schema';
 import { CreateUserDTO, UpdateUserDTO } from '../dto/user.dto';
@@ -8,7 +8,7 @@ import { CreateUserDTO, UpdateUserDTO } from '../dto/user.dto';
 describe('AuthService', () => {
   let usersService: UsersService;
   let userModel: Model<UserDocument>;
-
+  const id: Types.ObjectId = new Types.ObjectId('614a6d3d9d7e7d9f4a8c6a82');
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -50,7 +50,6 @@ describe('AuthService', () => {
     });
 
     it('should return a user by id from service', async () => {
-      const id: string = 'loremipsumdolor';
       const user: User = {
         username: 'john',
         email: 'johnkramer@jigsaw.com',
@@ -89,7 +88,6 @@ describe('AuthService', () => {
     });
 
     it('should return a updated user object from service', async () => {
-      const id: string = 'loremipsumdolor';
       const user: UpdateUserDTO = {
         username: 'mark',
         email: 'markhoffman@jigsaw.com',
@@ -102,12 +100,10 @@ describe('AuthService', () => {
     });
 
     it('should return the deleted user status from service', async () => {
-      const id: string = 'loremipsumdolor';
-
-      jest.spyOn(userModel, 'findByIdAndDelete').mockResolvedValue({});
+      jest.spyOn(userModel, 'findByIdAndDelete').mockResolvedValue(true);
       const result = await usersService.delete(id);
 
-      expect(result).toEqual({});
+      expect(result).toBe(true);
     });
   });
 });

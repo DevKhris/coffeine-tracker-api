@@ -1,5 +1,5 @@
 import { AuthService } from './../auth/auth.service';
-import { Schema, ObjectId } from 'mongoose';
+import { Schema, Types } from 'mongoose';
 import { User } from '../schemas/user.schema';
 import { UsersService } from './users.service';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
@@ -13,7 +13,7 @@ export class UserResolver {
   ) {}
 
   @Query(() => User)
-  async user(@Args('_id', { type: () => String }) _id: ObjectId) {
+  async user(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
     return this.usersService.find(_id);
   }
 
@@ -29,7 +29,7 @@ export class UserResolver {
 
   @Mutation(() => User)
   async updateUser(
-    @Args('_id', { type: () => String }) _id: ObjectId,
+    @Args('_id', { type: () => String }) _id: Types.ObjectId,
     @Args('updateUser')
     updateUser: UpdateUserDTO,
   ) {
@@ -37,7 +37,7 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  async deleteUser(@Args('_id', { type: () => String }) _id: ObjectId) {
+  async deleteUser(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
     return this.usersService.delete(_id);
   }
 }
