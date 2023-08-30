@@ -1,0 +1,26 @@
+services:
+  mongo:
+    container_name: database
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INIDB_ROOT_USERNAME: root
+      MONGO_INIDB_ROOT_PASSWORD: root
+      MONGO_INI_DATABASE: coffeine_tracker
+    volumes:
+      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
+  redis:
+    container_name: cache
+    image: redis
+    restart: on-failure
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+volumes:
+  redis:
+    driver: local
