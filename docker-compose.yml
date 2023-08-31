@@ -6,11 +6,11 @@ services:
     ports:
       - 27017:27017
     environment:
-      MONGO_INIDB_ROOT_USERNAME: root
-      MONGO_INIDB_ROOT_PASSWORD: root
-      MONGO_INI_DATABASE: coffeine_tracker
+      MONGO_INI_DATABASE: ${DATABASE_NAME}
+      MONGO_INIDB_ROOT_USERNAME: ${DATABASE_USER}
+      MONGO_INIDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - database:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   redis:
     container_name: cache
@@ -20,8 +20,29 @@ services:
       - 6379:6379
     volumes:
       - redis:/data
-    command: ['redis-server', '--loglevel warning']
+    command:
+      ['redis-server', '--loglevel warning', '--requirepass ${REDIS_PASSWORD}']
 
+  api-dev:
+    container_name: coffine-tracker
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
+    command: ['npm', 'run', 'start:dev']
+    ports:
+      - 3030:3030
+    depends_on:
+      - redis
+      - mongo
+    restart: on-failure
 volumes:
   redis:
+    driver: local
+  database:
     driver: local
