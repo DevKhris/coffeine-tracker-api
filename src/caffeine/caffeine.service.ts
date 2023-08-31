@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types, Model } from 'mongoose';
-import { Caffeine } from '../schemas/caffeine.schema';
+import { Caffeine, CaffeineDocument } from '../schemas/caffeine.schema';
 import {
   CaffeineDTO,
   CreateCaffeineDTO,
@@ -14,17 +14,20 @@ import { User } from '../schemas/user.schema';
 export class CaffeineService {
   constructor(
     @InjectModel(Caffeine.name) private caffeine: Model<Caffeine>,
-    private usersService: UsersService,
+
+    private readonly usersService: UsersService,
   ) {}
 
   async findByUserId(
     userId: Types.ObjectId,
     filters: object,
   ): Promise<Caffeine[]> {
-    return await this.caffeine
+    const data = await this.caffeine
       .find({ user: userId })
       .populate({ path: 'user', match: filters })
       .exec();
+
+    return data;
   }
 
   async createByUserId(

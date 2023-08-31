@@ -19,12 +19,13 @@ import { CaffeineResolver } from './caffeine/caffeine.resolver';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // CacheModule.register({
-    //   isGlobal: true,
-    //   store: redisStore,
-    //   host: process.env.REDIS_HOST,
-    //   port: process.env.REDIS_PORT,
-    // }),
+    CacheModule.register({
+      store: redisStore,
+      host: process.env.REDIS_HOST,
+      port: parseInt(process.env.REDIS_PORT),
+      db: 0,
+      isGlobal: true,
+    }),
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}/?retryWrites=true&w=majority`,
     ),
