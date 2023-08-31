@@ -2,8 +2,10 @@ import { AuthService } from './../auth/auth.service';
 import { Schema, Types } from 'mongoose';
 import { User } from '../schemas/user.schema';
 import { UsersService } from './users.service';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateUserDTO, UpdateUserDTO, UserDTO } from '../dto/user.dto';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGraphQlGuard } from '../auth/jwt-auth-graphql.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -13,12 +15,15 @@ export class UserResolver {
   ) {}
 
   @Query(() => User)
+  @UseGuards(JwtAuthGraphQlGuard)
   async user(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
     return this.usersService.find(_id);
   }
 
   @Query(() => [User])
-  async users(@Args('filters', { nullable: true }) filters?: UserDTO) {
+  async users(
+    @Args('filters', { type: () => UserDTO, nullable: true }) filters?: UserDTO,
+  ) {
     return this.usersService.findByField(filters);
   }
 

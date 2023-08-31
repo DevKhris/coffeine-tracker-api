@@ -35,6 +35,7 @@ import { CaffeineResolver } from './caffeine/caffeine.resolver';
       playground: process.env.APP_ENV === 'development' ? true : false,
       useGlobalPrefix: true,
       csrfPrevention: true,
+      context: ({ req }) => ({ req }),
     }),
     AuthModule,
     UsersModule,

@@ -46,7 +46,7 @@ type Mutation {
 }
 
 type Query {
-  caffeines(filters: CaffeineDTO!, userId: String!): Caffeine!
+  caffeines(filters: CaffeineDTO, userId: String!): Caffeine!
   user(_id: String!): User!
   users(filters: UserDTO): [User!]!
 }
