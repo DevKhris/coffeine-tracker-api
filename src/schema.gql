@@ -2,20 +2,61 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Caffeine {
+  _id: String!
+  amount: Float!
+  date: DateTime!
+  name: String!
+  time: DateTime!
+  user: [User!]!
+}
+
+input CaffeineDTO {
+  _id: String!
+  amount: Float!
+  date: DateTime!
+  name: String!
+  time: DateTime!
+}
+
+input CreateCaffeineDTO {
+  amount: Float!
+  date: DateTime!
+  name: String!
+  time: DateTime!
+}
+
 input CreateUserDTO {
   email: String!
   username: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Mutation {
+  createCaffeine(newCaffeine: CreateCaffeineDTO!, userId: String!): Caffeine!
+  deleteCaffeine(caffeineId: String!): Caffeine!
   deleteUser(_id: String!): User!
   registerUser(newUser: CreateUserDTO!): User!
+  updateCaffeine(caffeineId: String!, updateCaffeine: UpdateCaffeineDTO!): Caffeine!
   updateUser(_id: String!, updateUser: UpdateUserDTO!): User!
 }
 
 type Query {
+  caffeines(filters: CaffeineDTO!, userId: String!): Caffeine!
   user(_id: String!): User!
   users(filters: UserDTO): [User!]!
+}
+
+input UpdateCaffeineDTO {
+  _id: String!
+  amount: Float
+  date: DateTime
+  name: String
+  time: DateTime
 }
 
 input UpdateUserDTO {

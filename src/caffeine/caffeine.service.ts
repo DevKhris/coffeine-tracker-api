@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types, Model } from 'mongoose';
-import { Caffeine, CaffeineDocument } from '../schemas/caffeine.schema';
+import { Caffeine } from '../schemas/caffeine.schema';
 import {
   CaffeineDTO,
   CreateCaffeineDTO,
@@ -19,7 +19,7 @@ export class CaffeineService {
 
   async findByUserId(
     userId: Types.ObjectId,
-    filters: unknown,
+    filters: object,
   ): Promise<Caffeine[]> {
     return await this.caffeine
       .find({ user: userId })

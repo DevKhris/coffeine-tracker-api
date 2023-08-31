@@ -32,15 +32,11 @@ describe('CaffeineService', () => {
         UsersService,
         {
           provide: getModelToken(Caffeine.name),
-          useValue: {
-            find: jest.fn(),
-          },
+          useValue: {},
         },
         {
           provide: getModelToken(User.name),
-          useValue: {
-            find: jest.fn(),
-          },
+          useValue: {},
         },
       ],
     }).compile();
@@ -82,7 +78,15 @@ describe('CaffeineService', () => {
       date: new Date(),
     };
 
-    jest.spyOn(caffeineService, 'updateById').mockResolvedValue(updateCaffeine);
+    const caffeine: Caffeine = {
+      _id: caffeineId,
+      name: 'Energy Drink',
+      amount: 200,
+      time: new Date(),
+      date: new Date(),
+    };
+
+    jest.spyOn(caffeineService, 'updateById').mockResolvedValue(caffeine);
     const result = await caffeineService.updateById(caffeineId, updateCaffeine);
     expect(result).toEqual(updateCaffeine);
   });

@@ -1,37 +1,44 @@
+import { User } from './user.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
+import { Field, ObjectType } from '@nestjs/graphql';
 
+@ObjectType()
 @Schema({
   timestamps: true,
 })
 export class Caffeine {
+  @Field(() => String)
   _id?: Types.ObjectId;
 
+  @Field(() => Date)
   @Prop({
     trim: true,
   })
   date: Date;
 
+  @Field(() => Date)
   @Prop({
     required: true,
     trim: true,
   })
   time: Date;
 
+  @Field(() => String)
   @Prop({
     required: true,
     trim: true,
   })
-  @Prop()
   name: string;
 
+  @Field(() => Number)
   @Prop({
     required: true,
     trim: true,
   })
-  @Prop()
   amount: number;
 
+  @Field(() => [User])
   user?: [{ type: Types.ObjectId; ref: 'User' }];
 }
 

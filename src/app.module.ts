@@ -12,6 +12,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { CaffeineModule } from './caffeine/caffeine.module';
 import * as redisStore from 'cache-manager-redis-store';
+import { CaffeineResolver } from './caffeine/caffeine.resolver';
 
 @Module({
   imports: [
@@ -40,6 +41,6 @@ import * as redisStore from 'cache-manager-redis-store';
     CaffeineModule,
   ],
   controllers: [AppController],
-  providers: [AppService, UserResolver],
+  providers: [AppService, UserResolver, CaffeineResolver],
 })
 export class AppModule {}
