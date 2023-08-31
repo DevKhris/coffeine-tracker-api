@@ -5,6 +5,7 @@ import { Caffeine } from '../schemas/caffeine.schema';
 import { CaffeineService } from './caffeine.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CaffeineResolver } from './caffeine.resolver';
+import { JwtService } from '@nestjs/jwt';
 
 describe('CaffeineResolver', () => {
   let caffineResolver: CaffeineResolver;
@@ -12,6 +13,7 @@ describe('CaffeineResolver', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        JwtService,
         CaffeineResolver,
         CaffeineService,
         UsersService,

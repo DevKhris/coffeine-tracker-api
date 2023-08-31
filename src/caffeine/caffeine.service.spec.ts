@@ -3,9 +3,10 @@ import { Types, Model } from 'mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CaffeineService } from './caffeine.service';
 import { getModelToken } from '@nestjs/mongoose';
-import { CreateCaffeineDTO, UpdateCaffeineDTO } from 'src/dto/caffeine.dto';
+import { CreateCaffeineDTO, UpdateCaffeineDTO } from '../dto/caffeine.dto';
 import { UsersService } from '../users/users.service';
 import { User } from '../schemas/user.schema';
+import { JwtService } from '@nestjs/jwt';
 
 describe('CaffeineService', () => {
   let caffeineService: CaffeineService;
@@ -15,6 +16,7 @@ describe('CaffeineService', () => {
   const caffeineId: Types.ObjectId = new Types.ObjectId(
     '64ef3be195abbff6ea8da85f',
   );
+
   const caffeines: Caffeine[] = [
     {
       _id: userId,
@@ -28,6 +30,7 @@ describe('CaffeineService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        JwtService,
         CaffeineService,
         UsersService,
         {
